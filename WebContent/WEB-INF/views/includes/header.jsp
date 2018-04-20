@@ -24,7 +24,7 @@
 		<!-- 로그인 후 -->
 		<li><a href="/mysite/user?a=modifyform">회원정보수정</a></li>
 		<li><a href="/mysite/user?a=logout">로그아웃</a></li>
-		<li>[<a href = ""><%=authUser.getName()%></a>]님이 입장하셨습니다</li>
+		<li>[<a href = "/mysite/main"><%=authUser.getName()%></a>]님이 입장하셨습니다</li>
 		<%
 			}
 		%>

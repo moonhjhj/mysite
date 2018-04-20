@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.javaex.vo.UserVo;
 
@@ -146,21 +147,26 @@ public class UserDao {
 																				// pw)
 
 					// 3. SQL문 준비 / 바인딩(?처리) / 실행
-					String query = "select * from users where no = "+ no;
-
+					String query = "select * from users where no = ?";
 					pstmt = conn.prepareStatement(query);
 					pstmt.setInt(1, no);
-					pstmt.setString(2, userVo.getName());
 					rs = pstmt.executeQuery();
+
+					
 
 					// 4.결과처리
 					while (rs.next()) {
-						no = rs.getInt("no");
 						String name = rs.getString("name");
+						String email = rs.getString("email");
+						String password = rs.getString("password");
+						String gender = rs.getString("gender");
 
 						userVo = new UserVo();
 						userVo.setNo(no);
 						userVo.setName(name);
+						userVo.setEmail(email);
+						userVo.setPassword(password);
+						userVo.setGender(gender);
 					}
 
 				} catch (ClassNotFoundException e) {

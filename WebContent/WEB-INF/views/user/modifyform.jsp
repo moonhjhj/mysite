@@ -3,7 +3,8 @@
 	pageEncoding="UTF-8"%>
 <%
 // 	UserVo authUser = new UserVo();
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
+// 	UserVo authUser = (UserVo)session.getAttribute("authUser");
+	UserVo userInfo = (UserVo)request.getAttribute("userInfo");
 %>
 <!DOCTYPE html>
 <html>
@@ -27,9 +28,10 @@
 
 					<form id="join-form" name="joinform" method="post" action="/mysite/user">
 					<input type = "text" name = "a" value = "modify">
-						<label class="block-label" for="name">이름</label> <input id="name" name="name" type="text" value="<%=authUser.getName() %>" /> 
-						<label class="block-label" for="email">이메일</label> <input type = "text" name = "email" value = "<%=authUser.getEmail()%>" readonly = "readonly"><strong></strong> 
-						<label class="block-label">패스워드</label> <input name="password" type="password" value="<%=authUser.getPassword() %>" />
+					<input type = "hidden" name = "no" value = "<%=userInfo.getNo() %>">
+						<label class="block-label" for="name">이름</label> <input id="name" name="name" type="text" value="<%=userInfo.getName() %>" /> 
+						<label class="block-label" for="email">이메일</label> <input type = "text" name = "email" value = "<%=userInfo.getEmail()%>" readonly = "readonly"><strong></strong> 
+						<label class="block-label">패스워드</label> <input name="password" type="password" value="<%=userInfo.getPassword() %>" />
 
 						<fieldset>
 							<legend>성별</legend>

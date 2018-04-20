@@ -78,26 +78,48 @@ public class UserController extends HttpServlet {
 			
 		}else if("modifyform".equals(actionName)) {
 			
+			HttpSession session = request.getSession();
+			UserVo userVo = (UserVo)session.getAttribute("authUser");
+			UserDao userDao = new UserDao();
+			userVo = userDao.getUser(userVo.getNo());
+			request.setAttribute("userInfo", userVo);
+			
+			
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
 			
 			
 		}else if("modify".equals(actionName)) {
-			HttpSession session = request.getSession();
-			UserVo authUser = (UserVo)session.getAttribute("authUser");
-			UserDao userDao = new UserDao();
-			int no = authUser.getNo();
+//			HttpSession session = request.getSession();
+//			UserVo authUser = (UserVo)session.getAttribute("authUser");
+//			UserDao userDao = new UserDao();
+//			int no = authUser.getNo();
+//			String name = request.getParameter("name");
+//			String password = request.getParameter("password");
+//			String gender = request.getParameter("gender");
+//			
+//			authUser.setName(name);
+//			authUser.setPassword(password);
+//			authUser.setGender(gender);
+//			
+//			UserVo vo = new UserVo(no, name, password, gender);
+//			userDao.modify(vo);
+//			WebUtil.redirect(request, response, "/mysite/main");
+
+			String no = request.getParameter("no");
 			String name = request.getParameter("name");
 			String password = request.getParameter("password");
 			String gender = request.getParameter("gender");
+			UserVo userVo = new UserVo(Integer.parseInt(no), name, null, password, gender);
 			
+			UserDao userDao = new UserDao();
+			userDao.modify(userVo);
+			
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo) session.getAttribute("authUser");
 			authUser.setName(name);
-			authUser.setPassword(password);
-			authUser.setGender(gender);
+			session.setAttribute("authUser", authUser);
 			
-			UserVo vo = new UserVo(no, name, password, gender);
-			userDao.modify(vo);
 			WebUtil.redirect(request, response, "/mysite/main");
-			
 
 		}
 
